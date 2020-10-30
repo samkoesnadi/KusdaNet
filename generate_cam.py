@@ -13,7 +13,7 @@ from models.multi_class import *
 
 
 target_filename = "./sample/00002032_006.png"
-target_filename = "/mnt/7E8EEE0F8EEDBFAF/project/bachelorThesis/records/bachelorThesis/predictions/effusion.png"
+target_filename = "/mnt/7E8EEE0F8EEDBFAF/project/bachelorThesis/records/bachelorThesis/predictions/cardiomegaly.png"
 if __name__ == "__main__":
 	if USE_SVM:
 		model = model_MC_SVM()
@@ -56,7 +56,19 @@ if __name__ == "__main__":
 	for i_g, gradcampp in enumerate(gradcampps):
 		gradcampp = convert_to_RGB(gradcampp)
 
-		result = .7 * image_ori + .3 * (gradcampp-gradcampp.min())/(gradcampp.max()-gradcampp.min())
+		# show 2 images side by side
+		fig = plt.figure(figsize=(12.8, 9.6))
+		ax1 = fig.add_subplot(1, 2, 1)
+		ax1.imshow(image_ori)
+		plt.axis("off")
+		ax2 = fig.add_subplot(1, 2, 2)
+		ax2.imshow(gradcampp)
+		plt.axis("off")
+		plt.title(LABELS_KEY[i_g] + "({:.2f})".format(prediction[i_g]))
+		plt.savefig(f"gradcam_results/gradcam_{i_g+1}.png", bbox_inches='tight', dpi=100)
+		plt.close(fig)
+
+		result = .7 * image_ori + .3 * gradcampp
 		results[i_g] = result
 
 
