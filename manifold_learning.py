@@ -19,7 +19,7 @@ if __name__ == "__main__":
     elif USE_DOM_ADAP_NET:
         model = GANModel()
         # to initiate the graph
-        model.call_w_features(tf.zeros((1, IMAGE_INPUT_SIZE, IMAGE_INPUT_SIZE, 1)))
+        model(tf.zeros((1, IMAGE_INPUT_SIZE, IMAGE_INPUT_SIZE, 1)))
     else:
         model = model_binaryXE_mid(use_patient_data=USE_PATIENT_DATA)
 

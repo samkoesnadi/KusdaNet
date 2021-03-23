@@ -9,3 +9,4 @@ __pycache__
 weights
 **/*.pyc
 gradcam_results
+baseline_weight

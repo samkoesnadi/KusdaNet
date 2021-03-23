@@ -32,7 +32,7 @@ class GANModel(tf.keras.Model):
 
         image_section_model = tf.keras.applications.xception.Xception(include_top=False, weights=None, pooling=None,
                                                                       input_tensor=self.input_layer)
-        self._add_layer = image_section_model.get_layer("add_11").output
+        self._add_layer = image_section_model.layers[125].output
 
         self.shared_model = tf.keras.Model(inputs=self.input_layer, outputs=self._add_layer)
 

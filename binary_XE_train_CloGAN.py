@@ -132,9 +132,13 @@ if __name__ == "__main__":
                 # source_disc_output = discriminator(source_predictions, training=True)
                 # target_disc_output = discriminator(target_predictions, training=True)
 
-                # stop gradient for the output label
-                source_disc_output = discriminator([source_predictions[0], tf.stop_gradient(source_predictions[1])], training=True)
-                target_disc_output = discriminator([target_predictions[0], tf.stop_gradient(target_predictions[1])], training=True)
+                # # stop gradient for the output label... this is confusing!
+                # source_disc_output = discriminator([source_predictions[0], tf.stop_gradient(source_predictions[1])], training=True)
+                # target_disc_output = discriminator([target_predictions[0], tf.stop_gradient(target_predictions[1])], training=True)
+
+                # stop gradient for the output label...
+                source_disc_output = discriminator([tf.stop_gradient(source_predictions[0]), source_predictions[1]], training=True)
+                target_disc_output = discriminator([tf.stop_gradient(target_predictions[0]), target_predictions[1]], training=True)
 
                 # calculate xe loss
                 source_xe_loss = _XEloss(source_label_batch, source_predictions[0])
@@ -226,7 +230,7 @@ if __name__ == "__main__":
     # load disc and optimizer checkpoints
     checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
-    # training loop
+    # training loop_
     _callbackList.on_train_begin()
 
     # var for save checkpoint

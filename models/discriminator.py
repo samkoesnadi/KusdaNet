@@ -22,5 +22,18 @@ def make_discriminator_model():
     return tf.keras.Model(inputs=[input_2, input_1], outputs=output)
 
 
+def make_ADDA_discriminator_model():
+    input_1 = tf.keras.Input(shape=2048)
+
+    hidden = tf.keras.layers.Dense(1000, activation=tf.nn.swish)(input_1)
+    hidden = tf.keras.layers.Dense(500, activation=tf.nn.swish)(hidden)
+
+    # hidden = tf.keras.layers.Dropout(DROPOUT_N)(hidden_1_act)
+
+    output = tf.keras.layers.Dense(NUM_CLASSES, activation="sigmoid")(hidden)
+
+    return tf.keras.Model(inputs=input_1, outputs=output)
+
+
 if __name__ == "__main__":
     pass

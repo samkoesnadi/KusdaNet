@@ -235,3 +235,6 @@ else:
 # _total_ratio = RATIO_LOSSES[1] + RATIO_LOSSES[0]
 # RATIO_LOSSES[1] /= _total_ratio
 # RATIO_LOSSES[0] /= _total_ratio
+
+# for ADDA
+BASELINE_WEIGHT_PATH = "./baseline_weight/model_weights.{epoch:02d}-{val_auc:.2f}.hdf5"
